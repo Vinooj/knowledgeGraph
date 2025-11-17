@@ -45,7 +45,7 @@ models:
 
 rm -rf output/ cache/ logs/
 
-# GraphRAG looks at Ollama to create text embeddings
+# GraphRAG requires nomic-embed-text model for text embeddings
 ollama pull nomic-embed-text
 
 # Note: I was able to run it locally on my mackbook with 
