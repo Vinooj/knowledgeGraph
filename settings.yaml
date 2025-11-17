@@ -10,7 +10,7 @@ models:
     model_provider: openai
     auth_type: api_key # or azure_managed_identity
     api_key: ${GRAPHRAG_API_KEY} # This will read "ollama" from your .env file
-    model: "qwen3"              # CHANGED: Your Ollama chat model
+    model: "llama3.2"              # CHANGED: Your Ollama chat model
     api_base: "http://localhost:11434/v1" # CHANGED: Point to local Ollama API
     # api_version: 2024-05-01-preview
     model_supports_json: true # Assumes your model (e.g., Llama 3) supports JSON mode

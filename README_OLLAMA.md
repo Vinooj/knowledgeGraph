@@ -48,17 +48,20 @@ rm -rf output/ cache/ logs/
 # GraphRAG looks at Ollama to create text embeddings
 ollama pull nomic-embed-text
 
-# granite4 is very small model from IBM you can use
-# use to do a quick test
-# Note: Quality is directly proportional to Model size 
-# (and time).     
-ollama run granite4:350m
+# Note: I was able to run it locally on my mackbook with 
+# IBM's granite4:350m. But the quality was not good.
+ollama pull llama3.2
+  
+# Stop ollama deamon if it is already running. 
+# Use 'sudo lsof -i :11434' to check and kill the process
+sudo OLLAMA_NUM_PARALLEL=4 OLLAMA_MAX_LOADED_MODELS=4 ollama serve
+ollama run llama3.2
 
 # Make sure Ollama model is reachable
 curl http://localhost:11434/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-        "model": "granite4:350m",
+        "model": "llama3.2",
         "messages": [
           {
             "role": "system",
@@ -81,7 +84,7 @@ echo "Alice is a software engineer at Microsoft. Bob is a data scientist at Goog
 graphrag index --root . --verbose
 graphrag query --root . --method local --query "What is the relationship between Alice and Bob?"
 
-# Test 2
+# Test 2, if the first test worked
 curl https://www.gutenberg.org/cache/epub/24022/pg24022.txt -o ./input/book.txt
 
 graphrag index --root .
